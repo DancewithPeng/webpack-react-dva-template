@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import styles from './index.css';
+import React from 'react';
 import dva from 'dva';
+import { Router, Route, Switch } from 'dva/router';
+import styles from './index.css';
 
-class Appp extends Component {
+class Hello extends React.Component {
     render() {
         return (
-            <div>Hello World!</div>
-        );
-    }    
+            <div className={ styles.appContent }>Hello World!</div>
+        );        
+    }
 }
 
 // 1. Initialize
@@ -21,31 +21,13 @@ const app = dva();
 // app.model(require('./models/example').default);
 
 // 4. Router
-// app.router(require('./router').default);
-
-function RouterConfig({ history }) {
-    return (
-      <Router history={history}>
+app.router(({ history }) => (
+    <Router history={ history }>
         <Switch>
-          <Route path="/" exact component={Appp} />
+           <Route path="/" exact component={ Hello } />
         </Switch>
-      </Router>
-    );
-}
-
-app.router(RouterConfig);
+    </Router>
+));
   
 // 5. Start
 app.start('#root');
-
-// class App extends Component {
-//     render() {
-//         return (
-//             <div className={ styles.appContent }>
-//                 Hello World!
-//             </div>
-//         );
-//     }
-// }
-
-// render(<App />, document.getElementById('root'));
